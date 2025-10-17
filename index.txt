@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <title>LINE Flex Share</title>
+  </head>
+  <body class="flex items-center justify-center h-screen bg-black">
+    <button id="share-btn" class="text-white bg-yellow-500 hover:bg-yellow-600 font-bold py-3 px-6 rounded text-lg">
+      🎁 แชร์ให้เพื่อนเลย
+    </button>
+
+    <script>
+      async function shareFlex() {
+        try {
+          await liff.shareTargetPicker([
+            {
+              type: "flex",
+              altText: "👉 แจกเครดิตฟรี ไม่ต้องฝากก่อน 👈",
+              contents: {
+                type: "carousel",
+                contents: [
+                  {
+                    type: "bubble",
+                    size: "giga",
+                    hero: {
+                      type: "image",
+                      size: "full",
+                      aspectMode: "fit",
+                      url: "https://i.ibb.co/cK5D5KV6/PS1-06-07-68.png",
+                      aspectRatio: "6:5",
+                      margin: "none",
+                      backgroundColor: "#000000"
+                    },
+                    body: {
+                      type: "box",
+                      layout: "vertical",
+                      spacing: "sm",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "👉แจกเครดิตฟรีให้เล่นทุกวัน👈",
+                          wrap: true,
+                          weight: "bold",
+                          size: "lg",
+                          gravity: "center",
+                          align: "center",
+                          color: "#FFD700"
+                        },
+                        {
+                          type: "text",
+                          text: "💯 ต้องที่นี่เท่านั้น 💯",
+                          wrap: true,
+                          weight: "bold",
+                          size: "lg",
+                          gravity: "center",
+                          align: "center",
+                          color: "#FFD700"
+                        }
+                      ],
+                      backgroundColor: "#000000"
+                    },
+                    footer: {
+                      type: "box",
+                      layout: "vertical",
+                      spacing: "sm",
+                      contents: [
+                        {
+                          type: "button",
+                          style: "primary",
+                          action: {
+                            type: "uri",
+                            label: "สมัครสมาชิก",
+                            uri: "https://p888.pslot234.com/register"
+                          },
+                          color: "#B22222"
+                        },
+                        {
+                          type: "button",
+                          style: "primary",
+                          action: {
+                            type: "uri",
+                            label: "ติดต่อสอบถาม",
+                            uri: "https://lin.ee/pMeqXff"
+                          },
+                          color: "#0055ff"
+                        },
+                        {
+                          type: "button",
+                          style: "primary",
+                          action: {
+                            type: "uri",
+                            label: "แชร์",
+                            uri: "https://liff.line.me/2007657091-jr14LQ6N?autoshare=1"
+                          },
+                          color: "#ffbd00"
+                        }
+                      ],
+                      backgroundColor: "#000000"
+                    }
+                  }
+                ]
+              }
+            }
+          ]);
+          liff.closeWindow();
+        } catch (err) {
+          console.error("แชร์ไม่สำเร็จ", err);
+        }
+      }
+
+      window.onload = function () {
+        liff.init({ liffId: "2007657091-jr14LQ6N" }, () => {
+          liff.ready.then(() => {
+            if (!liff.isLoggedIn()) {
+              liff.login();
+            } else {
+              document.getElementById("share-btn").onclick = () => {
+                shareFlex();
+              };
+
+              const params = new URLSearchParams(window.location.search);
+              if (params.get("autoshare") === "1") {
+                shareFlex();
+              }
+            }
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
